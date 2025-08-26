@@ -1,0 +1,1 @@
+print("Hola joaquin, este es un modelo donde estoy probando exportabilidad del virtual enviroment")
