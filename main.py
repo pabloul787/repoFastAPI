@@ -1,1 +1,8 @@
-print("Hola joaquin, este es un modelo donde estoy probando exportabilidad del virtual enviroment")
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get("/")
+def root():
+    return {"message": "Hello World"}
