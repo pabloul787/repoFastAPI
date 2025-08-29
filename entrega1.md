@@ -1,5 +1,5 @@
 ## Entrega 1
-### Integrantes: Joaquin Troncoso (jtroncss) y Pablo Uribe (pabloul787)
+### Integrantes: Joaquin Troncoso (jtroncoss) y Pablo Uribe (pabloul787)
 
 #### El proyecto a realizar serán diversos endpoints los cuales al ser consultados utilizarán información tanto pesonal, como externa mediante APIs o webscraping y de base de datos para exponerle o realizar analisis a partir de la combinación de esta información. En particular realizaramos al menos 8 endpoints los cuales son detallados a continuación:
 
