@@ -26,18 +26,18 @@
     + Impuesto al lujo: indicará el valor del impuesto al lujo para el vehiculo en caso de no estar exento. Será calculado como Precio*tasa de impuesto.
 
 + **Endpoint de Base de Datos (Registro de Gastos Personales)**: Este endpoint permitirá gestionar los gastos personales de cada integrante del grupo mediante una base de datos SQLite. Se podrá acceder a la siguiente información y funcionalidades.
-    +Fecha: día en que se realizó el gasto.
-    +Categoría: tipo de gasto, por ejemplo: alimentación, transporte, ocio, educación, salud.
-    +Monto: valor en pesos chilenos del gasto realizado.
+    + Fecha: día en que se realizó el gasto.
+    + Categoría: tipo de gasto, por ejemplo: alimentación, transporte, ocio, educación, salud.
+    + Monto: valor en pesos chilenos del gasto realizado.
 
-    +Operaciones CRUD disponibles:
-        +Create (Crear): ingresar un nuevo gasto en la base de datos.
-        +Read (Leer): consultar todos los gastos registrados o filtrar por fecha/categoría.
-        +Update (Actualizar): modificar la información de un gasto ya registrado.
-        +Delete (Eliminar): eliminar un gasto de la base de datos.
+    + Operaciones CRUD disponibles:
+        + Create (Crear): ingresar un nuevo gasto en la base de datos.
+        + Read (Leer): consultar todos los gastos registrados o filtrar por fecha/categoría.
+        + Update (Actualizar): modificar la información de un gasto ya registrado.
+        + Delete (Eliminar): eliminar un gasto de la base de datos.
 
 + **Endpoint Analítico (Presupuesto Personal)**: Este endpoint utilizará los datos almacenados en el endpoint de gastos personales para generar un resumen financiero mensual y métricas útiles para la planificación del presupuesto. Se podrá acceder a la siguiente información:
-    +Gasto total del mes: suma de todos los gastos registrados en un mes determinado.
-    +Promedio diario: gasto promedio diario basado en los días del mes con al menos un registro de gasto.
-    +Categoría más costosa: la categoría donde se concentró el mayor gasto durante el mes.
+    + Gasto total del mes: suma de todos los gastos registrados en un mes determinado.
+    + Promedio diario: gasto promedio diario basado en los días del mes con al menos un registro de gasto.
+    + Categoría más costosa: la categoría donde se concentró el mayor gasto durante el mes.
 
