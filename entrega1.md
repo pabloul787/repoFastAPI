@@ -30,11 +30,11 @@
     + Categoría: tipo de gasto, por ejemplo: alimentación, transporte, ocio, educación, salud.
     + Monto: valor en pesos chilenos del gasto realizado.
 
-    + Operaciones CRUD disponibles:
-        + Create (Crear): ingresar un nuevo gasto en la base de datos.
-        + Read (Leer): consultar todos los gastos registrados o filtrar por fecha/categoría.
-        + Update (Actualizar): modificar la información de un gasto ya registrado.
-        + Delete (Eliminar): eliminar un gasto de la base de datos.
+    + Operaciones disponibles:
+        + Crear: ingresar un nuevo gasto en la base de datos.
+        + Leer: consultar todos los gastos registrados o filtrar por fecha/categoría.
+        + Actualizar: modificar la información de un gasto ya registrado.
+        + Eliminar: eliminar un gasto de la base de datos.
 
 + **Endpoint Analítico (Presupuesto Personal)**: Este endpoint utilizará los datos almacenados en el endpoint de gastos personales para generar un resumen financiero mensual y métricas útiles para la planificación del presupuesto. Se podrá acceder a la siguiente información:
     + Gasto total del mes: suma de todos los gastos registrados en un mes determinado.
