@@ -1,8 +1,12 @@
 #Este codigo me permite dar información general del alumno relacionado a asu historial academico------------------------------
+from fastapi import APIRouter
 import pandas as pd
+
+router_uni = APIRouter(prefix = "/universidad", tags=["Universidad"])
 
 db = pd.read_csv("demoDDBB.csv", sep=";") #importo el archivo csv
 
+@router_uni.get("/{user_id}")
 def general_des(user_id:int):
     lista_users = list(dict.fromkeys(db["Alumno"].tolist())) #obtenga una lista con los valores unicos de alumnos del csv
     s_user = db[db["Alumno"]==lista_users[user_id]] #elijo al alumno de la lista de arriba que tenga el mismo indice enviado en la url
