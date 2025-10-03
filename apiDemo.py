@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 import pandas as pd
+import apifunctions
 
 app = FastAPI()
 
@@ -11,18 +12,5 @@ async def root():
     
 
 @app.get("/universidad/{user_id}")
-def general_des(user_id:int):
-    lista_users = list(dict.fromkeys(db["Alumno"].tolist()))
-    s_user = db[db["Alumno"]==lista_users[user_id]]
-    cursos = s_user["curso"].tolist()
-    max_prom = max(s_user["promedio"].tolist())
-    oldest_registry = min(s_user["año"].tolist())
-    profesores_ramo = {}
-    for i in cursos:
-        profesores_ramo[i] = s_user[db["curso"]==i]["profesor"]
-    return "La siguiente información académica fue encontrada sobre el alumno:", {
-        "Nombre": lista_users[user_id],
-        "Cursos estudiados": ",".join(cursos),
-        "Promedio maximo encontrado": max_prom,
-        "Año del ramo más antiguo encontrado": oldest_registry
-    }, "¿Quieres saber más del ramo?", "Profesor por ramo", profesores_ramo
+def main_info(user_id:int):
+    return apifunctions.general_des(user_id)
