@@ -3,7 +3,6 @@ from dominio_creditos import objetos, crear_credito, lista_creditos
 
 router = APIRouter(prefix="/creditos", tags=["creditos"])
 
-# Inicializa los objetos (simple: al importar el router)
 if not objetos:
     crear_credito(lista_creditos)
 
@@ -22,8 +21,8 @@ def detalle_credito(nombre: str):
     return {
         "nombre": nombre,
         "monto_inicial": round(c.monto_inicial_credito, 2),
-        "tasa_mes": round(c.tasa_mes, 4),      # redondeo como pediste
-        "tasa_anual": round(c.tasa_anual, 2),  # redondeo como pediste
+        "tasa_mes": round(c.tasa_mes, 4),     
+        "tasa_anual": round(c.tasa_anual, 2),  
         "meses": c.meses,
         "deuda_actual": round(c.deuda_actual, 2),
         "cuota_mensual": round(c.cuota_mes, 2),
@@ -43,7 +42,7 @@ def aplicar_pago(nombre: str):
         "cuota_mensual": round(c.cuota_mes, 2),
     }
 
-# (Opcional) versión GET para probar en el navegador
+
 @router.get("/{nombre}/pago")
 def aplicar_pago_get(nombre: str):
     if nombre not in objetos:
