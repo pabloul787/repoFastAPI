@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException
-from dominio_creditos import objetos, crear_credito, lista_creditos
+from dominio_credito import objetos, crear_credito, lista_creditos
 
 router = APIRouter(prefix="/creditos", tags=["creditos"])
 
