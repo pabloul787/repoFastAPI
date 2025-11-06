@@ -101,7 +101,7 @@ Estas series permiten:
 ```json
 {
   "fecha": "01-09-2024",
-  "tpm": 11.25
+  "tpm": 5.53
 }
 ```
 
@@ -127,10 +127,10 @@ Estas series permiten:
 ```json
 {
   "fecha": "2024-09",
-  "tpm": 11.25,
+  "tpm": 5.53,
   "fecha_anterior": "2024-08",
-  "tpm_anterior": 11.50,
-  "variacion": -0.25
+  "tpm_anterior": 5.75,
+  "variacion": -0.22
 }
 ```
 
@@ -145,14 +145,14 @@ Estas series permiten:
 
 **Ejemplo:**  
 ```
-/bc/usd?fecha=2024-09-15
+/bc/usd?fecha=2024-09-02
 ```
 
 **Respuesta (ejemplo):**
 ```json
 {
-  "fecha": "15-09-2024",
-  "usdclp": 918.24
+  "fecha": "02-09-2024",
+  "usdclp": 913.99
 }
 ```
 
@@ -164,7 +164,7 @@ Estas series permiten:
 
 **Endpoint:** `GET /bc/usd/30d`
 
-**Descripción:** Devuelve el **dólar del día** indicado y el de **~30 días antes**, además de la **variación**.  
+**Descripción:** Devuelve el **dólar del día** indicado o en caso de que ese dia no exista información, del día pasado más cercano del que si se disponga información y el de **~30 días antes** (o el más proximo igualmente), además de la **variación**.  
 **Parámetro:** `?fecha=YYYY-MM-DD`
 
 **Ejemplo:**  
@@ -175,11 +175,11 @@ Estas series permiten:
 **Respuesta (ejemplo):**
 ```json
 {
-  "fecha_actual": "15-09-2024",
-  "usd_actual": 918.24,
+  "fecha_actual": "13-09-2024",
+  "usd_actual": 933.57,
   "fecha_30d": "16-08-2024",
-  "usd_30d": 895.43,
-  "variacion": 22.81,
+  "usd_30d": 931.39,
+  "variacion": 2.8,
 }
 ```
 
@@ -189,7 +189,7 @@ Estas series permiten:
 
 **Endpoint:** `GET /bc/uip`
 
-**Descripción:** Evalúa si se cumple la **UIP** comparando movimientos de **TPM** y **USD**, asumiendo tasa externa constante.  
+**Descripción:** Evalúa si se cumple la **UIP** comparando movimientos de **TPM** y **USD**, asumiendo tasa externa constante. Utiliza las funciones de variacion de la TPM y del usd.  
 **Parámetro:** `?fecha=YYYY-MM-DD`
 
 **Ejemplo:**  
@@ -200,13 +200,13 @@ Estas series permiten:
 **Respuesta (ejemplo):**
 ```json
 {
-  "tpm_actual": 11.25,
-  "tpm_anterior": 11.50,
-  "usd_actual": 918.24,
-  "usd_anterior": 895.43,
+  "tpm_actual": 5.53,
+  "tpm_anterior": 5.75,
+  "usd_actual": 933.57,
+  "usd_anterior": 931.39,
   "fecha_tpm_actual": "2024-09",
   "fecha_tpm_anterior": "2024-08",
-  "fecha_usd_actual": "15-09-2024",
+  "fecha_usd_actual": "13-09-2024",
   "fecha_usd_anterior": "16-08-2024",
   "cambio de la tpm": "negativo",
   "cambio del usd": "positivo",
@@ -243,6 +243,33 @@ curl -X GET "http://localhost:8000/bc/usd/30d?fecha=2024-09-15"
 curl -X GET "http://localhost:8000/bc/uip?fecha=2024-09-15"
 ```
 
+# Detalle de funcionamiento
+
+### Tasa de Política Monetaria (TPM)
+
+La **TPM** representa la tasa de interés fijada por el **Banco Central de Chile** como instrumento principal de política monetaria. 
+Su objetivo es mantener la inflación en torno a la meta del 3% anual y estabilizar la economía.  
+La serie se publica con frecuencia mensual, normalmente los primeros días de cada mes.
+
+La función `tpm_mensual_por_fecha()` consulta directamente el valor correspondiente a la fecha ingresada.  
+Cuando se consulta por la variación de la TPM (mensual) se emplea la función `tpm_mensual_y_variacion()` y en caso de que no exista registro exacto (por ejemplo, si el dato del mes aún no ha sido publicado), se activa la función auxiliar 
+`_buscar_tpm_mas_reciente_hasta()`, que retrocede hasta 12 meses hacia atrás buscando la observación más reciente disponible.
+
+De este modo, el sistema devuelve el último dato válido anterior al solicitado, evitando respuestas vacías cuando el Banco Central aún no publica el dato del mes.
+
+
+### Tipo de cambio USD/CLP (Dólar observado)
+
+El **dólar observado** corresponde al valor promedio del tipo de cambio peso chileno / dólar estadounidense, publicado diariamente por el **Banco Central de Chile**.  
+Se utiliza para operaciones financieras, análisis macroeconómico y ajuste de contratos denominados en moneda extranjera.
+
+La función `dolar_por_fecha()` obtiene el valor del dólar para una fecha específica (`YYYY-MM-DD`).  
+Cuando se consulta por la variación se emplea la funcion `dolar_con_30_dias()`. En este caso si el día consultado es fin de semana o feriado, y no existe registro disponible, entra en acción la función `_usd_ultimo_disponible()`, 
+que retrocede hasta 7 días hacia atrás en el calendario, devolviendo el último valor hábil publicado.
+
+Esto permite mantener la continuidad de datos incluso en días no operativos, garantizando siempre una respuesta numérica válida cuando exista algún registro en la semana anterior.
+
+
 ## Contexto Económico
 
 La **UIP (Uncovered Interest Parity)** sugiere que:
@@ -274,7 +301,6 @@ repoFastAPI/
 └── API_DOCUMENTACION.md       # Este archivo
 ```
 
----
 
 ## Solución de Problemas
 
