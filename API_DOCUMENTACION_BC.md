@@ -304,10 +304,11 @@ repoFastAPI/
 
 ## Solución de Problemas
 
-**“Sin dato para esa fecha (TPM mensual)”** 
-- Usa ?fecha=YYYY-MM-01 y verifica que ese mes esté publicado. 
-**“Sin dato exacto de USD para ese día”** 
+**“Sin dato para esa fecha (TPM mensual)”**  
+- Usa `?fecha=YYYY-MM-01` y verifica que ese mes esté publicado.
+
+**“Sin dato exacto de USD para ese día”**  
 - Prueba con un día hábil cercano (lun–vie).
+
 **“Error de credenciales”**  
 - Define `USER` y `PASS` en `dominio_banco_central.py` con tus credenciales del BCCh.
-
