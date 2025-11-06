@@ -63,4 +63,4 @@ def crear_credito(listacreditos):
         objetos[nombre] = Credito(monto, tasa_mes, plazo_meses)       
 
 
-#uvicorn prueba:app --reload
+#uvicorn apifunctions:app --reload
