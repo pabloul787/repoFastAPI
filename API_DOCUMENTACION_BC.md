@@ -285,7 +285,6 @@ La API automatiza esta comprobación con datos reales del **BCCh** para apoyar a
 - Para **TPM**, usa el **día 01** del mes (p. ej., `?fecha=2024-09-01`)  
 - Considera feriados y fines de semana para el **USD**  
 - Interpreta la salida combinando **variaciones** y **comentario** (UIP)  
-- Convierte respuestas JSON a **pandas** para análisis/visualización
 
 ---
 
