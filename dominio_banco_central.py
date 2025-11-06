@@ -2,8 +2,8 @@ import requests
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta  # pip install python-dateutil
 
-USER = "joaquin.troncoso.sep@gmail.com"
-PASS = "Blanquita01."
+USER = ""
+PASS = ""
 
 def tpm_mensual_por_fecha(fecha_yyyy_mm_dd, user, password):
  
