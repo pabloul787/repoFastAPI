@@ -2,10 +2,12 @@ from fastapi import FastAPI
 import pandas as pd
 from apifunctions import router_uni as universidad_router
 from routes.creditos import router as creditos_router
+from routes.banco_central import router as bc_router
 app = FastAPI()
 
 app.include_router(universidad_router)
 app.include_router(creditos_router)
+app.include_router(bc_router)   
 
 @app.get("/")
 async def root():
