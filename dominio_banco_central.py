@@ -31,7 +31,6 @@ def tpm_mensual_por_fecha(fecha_yyyy_mm_dd, user, password):
 # {'fecha': '01-11-2025', 'tpm': 5.0}   <-- ejemplo 
 
 
-
 def _yyyy_mm_01(fecha_yyyy_mm_dd: str) -> str:
     """Normaliza cualquier fecha a 'YYYY-MM-01'."""
     d = datetime.strptime(fecha_yyyy_mm_dd, "%Y-%m-%d").replace(day=1)
