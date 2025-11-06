@@ -67,7 +67,7 @@ def tpm_mensual_y_variacion(fecha_yyyy_mm_dd, user, password):
         ym_prev = dt_prev.strftime("%Y-%m")
         tpm_prev = float(anterior["tpm"])
 
-    variacion = None if tpm_prev is None else (tpm_act - tpm_prev)
+    variacion = None if tpm_prev is None else round(tpm_act - tpm_prev,3)
 
     return {
         "fecha": ym_act,
@@ -122,15 +122,18 @@ def dolar_con_30_dias(fecha_yyyy_mm_dd, user, password):
     antes_30 = _usd_ultimo_disponible(d_30, user, password, max_retro=7)
     if antes_30 is None:
         return None
+    
+    variacion = round(actual["usdclp"] - antes_30["usdclp"],3)
 
     return {
         "fecha_actual": actual["fecha"],
         "usd_actual": actual["usdclp"],
         "fecha_30d": antes_30["fecha"],
         "usd_30d": antes_30["usdclp"],
+        "variacion": variacion   
     }
 
-def uip_basicos(fecha_yyyy_mm_dd, user, password):
+def uip(fecha_yyyy_mm_dd, user, password):
 
     tpm_data = tpm_mensual_y_variacion(fecha_yyyy_mm_dd, user, password)
     if not tpm_data or tpm_data.get("tpm") is None or tpm_data.get("tpm_anterior") is None:
