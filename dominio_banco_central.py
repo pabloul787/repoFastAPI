@@ -1,10 +1,9 @@
 import requests
-import pandas as pd
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta  # pip install python-dateutil
 
-USER = "joaquin.troncoso.sep@gmail.com"
-PASS = "Blanquita01."
+USER = ""
+PASS = ""
 
 def tpm_mensual_por_fecha(fecha_yyyy_mm_dd, user, password):
  
@@ -28,9 +27,7 @@ def tpm_mensual_por_fecha(fecha_yyyy_mm_dd, user, password):
         "fecha": fila["indexDateString"],      # 'dd-mm-YYYY'
         "tpm": float(fila["value"])            # porcentaje
     }
-USER = "joaquin.troncoso.sep@gmail.com"
-PASS = "Blanquita01."
-print(tpm_mensual_por_fecha("2024-09-01", USER, PASS))
+
 # {'fecha': '01-11-2025', 'tpm': 5.0}   <-- ejemplo 
 
 
