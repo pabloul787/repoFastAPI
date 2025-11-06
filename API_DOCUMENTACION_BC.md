@@ -1,6 +1,6 @@
-# 📊 Documentación de la API Banco Central de Chile
+#   Documentación de la API Banco Central de Chile
 
-## 🧭 Resumen de Endpoints (Índice Rápido)
+##   Resumen de Endpoints 
 
 | # | Endpoint | Método | Parámetros | Descripción | Ejemplo de uso |
 |---|---------|--------|------------|-------------|----------------|
@@ -16,7 +16,7 @@
 
 ## Descripción General
 
-La **API del Banco Central** es un servicio web RESTful construido con **FastAPI** que se conecta a la API pública del **Banco Central de Chile (BCCh)** para obtener indicadores macroeconómicos clave como la **Tasa de Política Monetaria (TPM)** y el **Tipo de Cambio (USD/CLP)**.  
+La **API del Banco Central** es un servicio web construido con FastAPI que se conecta a la API pública del Banco Central de Chile para obtener indicadores macroeconómicos clave como la **Tasa de Política Monetaria (TPM)** y el **Tipo de Cambio (USD/CLP)**.  
 Además, implementa una validación teórica de la **Paridad de Tasas de Interés No Cubierta (UIP)**, asumiendo una tasa externa constante.
 
 Esta API demuestra la integración entre **Python**, **servicios web externos** y **análisis económico aplicado** para fines de Ciencia de Datos.
@@ -164,7 +164,7 @@ Estas series permiten:
 
 **Endpoint:** `GET /bc/usd/30d`
 
-**Descripción:** Devuelve el **dólar del día** indicado y el de **~30 días antes**, además de la **variación absoluta y porcentual**.  
+**Descripción:** Devuelve el **dólar del día** indicado y el de **~30 días antes**, además de la **variación**.  
 **Parámetro:** `?fecha=YYYY-MM-DD`
 
 **Ejemplo:**  
@@ -180,7 +180,6 @@ Estas series permiten:
   "fecha_30d": "16-08-2024",
   "usd_30d": 895.43,
   "variacion": 22.81,
-  "variacion_pct": 0.0255
 }
 ```
 
@@ -244,28 +243,6 @@ curl -X GET "http://localhost:8000/bc/usd/30d?fecha=2024-09-15"
 curl -X GET "http://localhost:8000/bc/uip?fecha=2024-09-15"
 ```
 
-**Uso en Python (pandas)**
-```python
-import requests
-import pandas as pd
-
-tpm = requests.get("http://localhost:8000/bc/tpm/variacion?fecha=2024-09-15").json()
-usd = requests.get("http://localhost:8000/bc/usd/30d?fecha=2024-09-15").json()
-
-df = pd.DataFrame([{
-    "fecha": tpm["fecha"],
-    "tpm": tpm["tpm"],
-    "tpm_anterior": tpm["tpm_anterior"],
-    "usd_actual": usd["usd_actual"],
-    "usd_30d": usd["usd_30d"],
-    "variacion_usd_pct": usd["variacion_pct"]
-}])
-
-print(df)
-```
-
----
-
 ## Contexto Económico
 
 La **UIP (Uncovered Interest Parity)** sugiere que:
@@ -301,17 +278,6 @@ repoFastAPI/
 
 ## Solución de Problemas
 
-**“Sin dato para esa fecha (TPM mensual)”**  
-- Usa `?fecha=YYYY-MM-01` y verifica que ese mes esté publicado.
-
-**“Sin dato exacto de USD para ese día”**  
-- Prueba con un día hábil cercano (lun–vie).
-
 **“Error de credenciales”**  
 - Define `USER` y `PASS` en `dominio_banco_central.py` con tus credenciales del BCCh.
 
----
-
-**Última actualización:** Noviembre 2025  
-**Versión:** 1.0.0  
-**Curso:** Ciencia de Datos — UTFSM 2025
