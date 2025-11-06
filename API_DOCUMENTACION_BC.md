@@ -115,7 +115,7 @@ Estas series permiten:
 
 **Endpoint:** `GET /bc/tpm/variacion`
 
-**Descripción:** Devuelve la **TPM** del mes indicado, la **TPM** del **mes anterior** y la **variación**.  
+**Descripción:** Devuelve la **TPM** del mes indicado (si no existe información durante ese mes devuelve la información del mes pasado mas cercano del cual exista información disponible), la **TPM** del **mes anterior** (también busca la mas cercana en caso de no encontrar información) y la **variación**.  
 **Parámetro:** `?fecha=YYYY-MM-DD` (cualquier día del mes de interés)
 
 **Ejemplo:**  
