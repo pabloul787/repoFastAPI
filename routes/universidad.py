@@ -86,7 +86,7 @@ async def crear_nuevo_registro(registro: Registro):
         cursor3.execute(insertar_registro, datos_tupla) #antes datos tupla era registro_input
 
         conexion.commit()
-        return("Exitoso")
+        return("Registro exitosamente creado:", datos_tupla)
     
 @router_uni.patch("/actualizar_registro/{registro_id}")
 async def actualizar_registro(registro_id: int, registro_data: UpRegistro):
