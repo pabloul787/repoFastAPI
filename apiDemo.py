@@ -7,13 +7,11 @@ from routes.banco_central import router as bc_router
 from contextlib import asynccontextmanager
 
 
-from routes.universidad import crear_db # <-- 2. ADD THIS IMPORT
+from routes.universidad import crear_db
 
 # --- 3. ADD THE LIFESPAN FUNCTION ---
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Code to run ONCE on server startup
-    print("Server is starting up...")
     crear_db()
     yield
 app = FastAPI(lifespan=lifespan)
@@ -24,7 +22,7 @@ app.include_router(bc_router)
 
 @app.get("/")
 async def root():
-    return "Bienvenido, estos son los ID para consultar información sobre los estudiantes Pablo Uribe --> ID:0\nJoaquin Troncoso --> ID: 1"
+    return "Bienvenido a nuestra API, aqui puedes registrar información academica tuya o tambien consultar información del banco central"
     
 
 #@app.get("/universidad/{user_id}")
